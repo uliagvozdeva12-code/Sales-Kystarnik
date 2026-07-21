@@ -1,0 +1,275 @@
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Анализ закупок кустарников — осень 2026</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <style>
+    :root{
+      --bg:#f3f6f1;
+      --card:#ffffff;
+      --ink:#183128;
+      --muted:#6e7d75;
+      --green:#2f6f4e;
+      --green2:#79a887;
+      --soft:#e8f1e9;
+      --amber:#d99027;
+      --red:#b94a48;
+      --line:#dce6de;
+      --shadow:0 12px 30px rgba(31,69,49,.08);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:linear-gradient(180deg,#eef4ed 0,#f8faf7 100%);
+      color:var(--ink);
+      font-family:Inter,Segoe UI,Arial,sans-serif;
+    }
+    .wrap{max-width:1440px;margin:auto;padding:28px}
+    .hero{
+      background:linear-gradient(135deg,#244f3a,#3f7c59);
+      color:#fff;border-radius:24px;padding:30px 34px;
+      box-shadow:var(--shadow);position:relative;overflow:hidden
+    }
+    .hero:after{
+      content:"";position:absolute;width:260px;height:260px;border-radius:50%;
+      background:rgba(255,255,255,.07);right:-70px;top:-90px
+    }
+    h1{font-size:32px;margin:0 0 8px}
+    .subtitle{opacity:.86;max-width:880px;line-height:1.5}
+    .note{
+      display:inline-flex;margin-top:18px;padding:9px 14px;border-radius:999px;
+      background:rgba(255,255,255,.13);font-size:13px
+    }
+    .grid{display:grid;gap:18px;margin-top:20px}
+    .kpis{grid-template-columns:repeat(4,1fr)}
+    .kpi,.card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+    .kpi{padding:20px}
+    .kpi .label{color:var(--muted);font-size:13px}
+    .kpi .value{font-size:28px;font-weight:800;margin-top:7px}
+    .kpi .hint{font-size:12px;color:var(--muted);margin-top:5px}
+    .two{grid-template-columns:1fr 1fr}
+    .card{padding:22px}
+    .card h2{font-size:19px;margin:0 0 6px}
+    .card p.desc{font-size:13px;color:var(--muted);margin:0 0 18px}
+    .chartbox{height:330px}
+    table{width:100%;border-collapse:collapse;font-size:13px}
+    th{text-align:left;color:var(--muted);font-size:12px;padding:11px 10px;border-bottom:1px solid var(--line)}
+    td{padding:12px 10px;border-bottom:1px solid #edf1ee;vertical-align:middle}
+    tr:hover td{background:#fafcf9}
+    .badge{display:inline-block;padding:5px 9px;border-radius:999px;font-size:11px;font-weight:700}
+    .good{background:#e5f4e9;color:#267344}
+    .warn{background:#fff1d8;color:#94601a}
+    .bad{background:#fde8e6;color:#a3423f}
+    .neutral{background:#edf1ee;color:#5e6b64}
+    .bar{height:8px;border-radius:99px;background:#e9efea;overflow:hidden;min-width:120px}
+    .bar span{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--green2),var(--green))}
+    .section-title{margin:30px 0 12px;font-size:22px}
+    .recommend{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:14px
+    }
+    .rec{padding:18px;border-radius:16px;border:1px solid var(--line);background:#fff}
+    .rec h3{margin:0 0 10px;font-size:16px}
+    .rec ul{margin:0;padding-left:18px;color:#40544a;line-height:1.65;font-size:13px}
+    .footer{color:var(--muted);font-size:12px;text-align:center;padding:24px 0 10px}
+    @media(max-width:1000px){
+      .kpis,.two,.recommend{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:650px){
+      .wrap{padding:14px}.kpis,.two,.recommend{grid-template-columns:1fr}
+      h1{font-size:25px}.chartbox{height:280px}.card{overflow:auto}
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <h1>Закупки кустарников — осень 2026</h1>
+    <div class="subtitle">
+      Анализ ассортимента по категориям «Кустарники крупные», «Ягодно-плодовые кустарники» и «Кустарники маленькие».
+      Все коммерческие показатели представлены только в процентах.
+    </div>
+    <div class="note">Конфиденциально: суммы выручки и стоимость заказа скрыты</div>
+  </section>
+
+  <section class="grid kpis">
+    <div class="kpi">
+      <div class="label">Главная категория по объему</div>
+      <div class="value">87,0%</div>
+      <div class="hint">Кустарники маленькие</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Главная категория по доле выручки</div>
+      <div class="value">52,4%</div>
+      <div class="hint">Кустарники крупные</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Пик сезонного спроса</div>
+      <div class="value">51,7%</div>
+      <div class="hint">Доля июня в объеме продаж</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Позиции заказа без параметров</div>
+      <div class="value">18,8%</div>
+      <div class="hint">3 из 16 анализируемых строк</div>
+    </div>
+  </section>
+
+  <section class="grid two">
+    <div class="card">
+      <h2>Структура продаж по категориям</h2>
+      <p class="desc">Доли по количеству и по выручке, без раскрытия абсолютных сумм.</p>
+      <div class="chartbox"><canvas id="categoryChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h2>Сезонность продаж</h2>
+      <p class="desc">Распределение объема продаж за январь–июнь 2026 года.</p>
+      <div class="chartbox"><canvas id="seasonChart"></canvas></div>
+    </div>
+  </section>
+
+  <h2 class="section-title">Что уже закупается</h2>
+  <section class="card">
+    <p class="desc">Доля каждой позиции в общем объеме осеннего заказа. Абсолютные количества скрыты.</p>
+    <table>
+      <thead><tr><th>Позиция</th><th>Доля в заказе</th><th>Покрытие относительно продаж</th><th>Оценка</th></tr></thead>
+      <tbody>
+        <tr><td>Спирея Little Princess</td><td>15,0%</td><td>811,7%</td><td><span class="badge bad">Сильный избыток</span></td></tr>
+        <tr><td>Спирея Goldflame</td><td>12,0%</td><td>1 612,9%</td><td><span class="badge bad">Сильный избыток</span></td></tr>
+        <tr><td>Пузыреплодник Andre</td><td>12,0%</td><td>1 162,8%</td><td><span class="badge bad">Сильный избыток</span></td></tr>
+        <tr><td>Пузыреплодник Diablo Dor</td><td>9,0%</td><td>742,6%</td><td><span class="badge bad">Избыточно</span></td></tr>
+        <tr><td>Пузыреплодник Angel Gold</td><td>9,0%</td><td>1 648,4%</td><td><span class="badge bad">Сильный избыток</span></td></tr>
+        <tr><td>Пузыреплодник Red Baron</td><td>9,0%</td><td>50 000,0%</td><td><span class="badge bad">Критический риск</span></td></tr>
+        <tr><td>Лапчатка Goldfinger</td><td>9,0%</td><td>862,1%</td><td><span class="badge bad">Избыточно</span></td></tr>
+        <tr><td>Спирея иволистная</td><td>9,0%</td><td>1 087,0%</td><td><span class="badge bad">Сильный избыток</span></td></tr>
+        <tr><td>Барбарис Superba</td><td>9,0%</td><td>279,9%</td><td><span class="badge warn">Выше спроса</span></td></tr>
+        <tr><td>Форзиция</td><td>3,6%</td><td>365,9%</td><td><span class="badge warn">Выше спроса</span></td></tr>
+        <tr><td>Пузыреплодник Luteus</td><td>3,3%</td><td>128,8%</td><td><span class="badge good">Ближе к норме</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <h2 class="section-title">Чего нет в закупке, но стоит купить</h2>
+  <section class="card">
+    <p class="desc">
+      Приоритет сформирован по доле позиции в продажах, доле в выручке и ABC-группе.
+      Проценты не раскрывают коммерческие суммы.
+    </p>
+    <table>
+      <thead><tr><th>Позиция / группа</th><th>Доля в объеме продаж</th><th>Доля в выручке</th><th>ABC</th><th>Рекомендация</th></tr></thead>
+      <tbody>
+        <tr><td>Кизильник</td><td><div class="bar"><span style="width:100%"></span></div> 30,8%</td><td>11,2%</td><td><span class="badge good">A</span></td><td><span class="badge bad">Обязательно добавить</span></td></tr>
+        <tr><td>Кизильник блестящий</td><td><div class="bar"><span style="width:56%"></span></div> 17,3%</td><td>4,3%</td><td><span class="badge good">A</span></td><td><span class="badge bad">Обязательно добавить</span></td></tr>
+        <tr><td>Виноград девичий</td><td><div class="bar"><span style="width:18%"></span></div> 5,7%</td><td>2,6%</td><td><span class="badge good">A</span></td><td><span class="badge bad">Добавить в базовый заказ</span></td></tr>
+        <tr><td>Дерен белый Elegantissima</td><td><div class="bar"><span style="width:16%"></span></div> 5,1%</td><td>9,5% совокупно</td><td><span class="badge good">A</span></td><td><span class="badge bad">Стратегическая позиция</span></td></tr>
+        <tr><td>Боярышник колючий</td><td><div class="bar"><span style="width:9%"></span></div> 2,7%</td><td>8,4%</td><td><span class="badge good">A</span></td><td><span class="badge bad">Добавить, контролировать размер</span></td></tr>
+        <tr><td>Спирея Grefsheim</td><td><div class="bar"><span style="width:6%"></span></div> 1,7%</td><td>3,1% совокупно</td><td><span class="badge good">A</span></td><td><span class="badge warn">Добавить отдельно от Goldflame</span></td></tr>
+        <tr><td>Ива пурпурная Nana</td><td><div class="bar"><span style="width:5%"></span></div> 1,4%</td><td>3,4%</td><td><span class="badge good">A</span></td><td><span class="badge bad">Добавить</span></td></tr>
+        <tr><td>Голубика в ассортименте</td><td><div class="bar"><span style="width:4%"></span></div> 1,2%</td><td>8,9%</td><td><span class="badge good">A</span></td><td><span class="badge bad">Обязательно добавить</span></td></tr>
+        <tr><td>Рябинник рябинолистный</td><td><div class="bar"><span style="width:6%"></span></div> 1,8%</td><td>0,4%</td><td><span class="badge neutral">B/C</span></td><td><span class="badge warn">Средний запас</span></td></tr>
+        <tr><td>Барбарис Тунберга</td><td><div class="bar"><span style="width:4%"></span></div> 1,2%</td><td>0,6%</td><td><span class="badge neutral">B</span></td><td><span class="badge warn">Расширить линейку</span></td></tr>
+        <tr><td>Ирга канадская</td><td><div class="bar"><span style="width:3%"></span></div> 1,0%</td><td>0,8%</td><td><span class="badge good">A</span></td><td><span class="badge warn">Добавить ограниченно</span></td></tr>
+        <tr><td>Бирючина вечнозеленая</td><td><div class="bar"><span style="width:3%"></span></div> 1,0%</td><td>0,7%</td><td><span class="badge good">A</span></td><td><span class="badge warn">Добавить ограниченно</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="grid two">
+    <div class="card">
+      <h2>ТОП позиций по доле продаж</h2>
+      <p class="desc">Только относительная доля в общем количестве.</p>
+      <div class="chartbox"><canvas id="topChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h2>ABC-структура ассортимента</h2>
+      <p class="desc">Доля выручки по группам без отображения сумм.</p>
+      <div class="chartbox"><canvas id="abcChart"></canvas></div>
+    </div>
+  </section>
+
+  <h2 class="section-title">Управленческие рекомендации</h2>
+  <section class="recommend">
+    <div class="rec">
+      <h3>Увеличить / добавить</h3>
+      <ul>
+        <li>Кизильник и кизильник блестящий</li>
+        <li>Дерен Elegantissima</li>
+        <li>Голубику</li>
+        <li>Боярышник колючий</li>
+        <li>Иву Nana и спирею Grefsheim</li>
+      </ul>
+    </div>
+    <div class="rec">
+      <h3>Снизить объем</h3>
+      <ul>
+        <li>Red Baron</li>
+        <li>Angel Gold</li>
+        <li>Goldflame</li>
+        <li>Andre</li>
+        <li>Спирею иволистную</li>
+      </ul>
+    </div>
+    <div class="rec">
+      <h3>Уточнить до заказа</h3>
+      <ul>
+        <li>Сирень обыкновенная</li>
+        <li>Сирень венгерская</li>
+        <li>Чубушник</li>
+        <li>Соответствие названий Diablo Dor и Angel Gold</li>
+        <li>План осенних продаж и остатки склада</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="footer">
+    Источник: внутренние файлы продаж и заказа кустарников, 2026 год. Денежные суммы намеренно не отображаются.
+  </div>
+</div>
+
+<script>
+const green = '#2f6f4e', green2='#79a887', amber='#d99027', red='#b94a48', light='#dce6de';
+Chart.defaults.font.family = 'Inter, Segoe UI, Arial, sans-serif';
+Chart.defaults.color = '#52645a';
+
+new Chart(document.getElementById('categoryChart'),{
+  type:'bar',
+  data:{
+    labels:['Крупные','Ягодно-плодовые','Маленькие'],
+    datasets:[
+      {label:'Доля количества, %',data:[9.4,3.5,87.0],backgroundColor:green2,borderRadius:8},
+      {label:'Доля выручки, %',data:[52.4,12.0,35.6],backgroundColor:green,borderRadius:8}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}},
+    scales:{y:{beginAtZero:true,max:100,ticks:{callback:v=>v+'%'}}}}
+});
+
+new Chart(document.getElementById('seasonChart'),{
+  type:'line',
+  data:{labels:['Янв','Фев','Мар','Апр','Май','Июн'],
+    datasets:[{label:'Доля объема продаж, %',data:[0,0,0.9,14.5,32.8,51.7],borderColor:green,
+      backgroundColor:'rgba(47,111,78,.14)',fill:true,tension:.35,pointRadius:5}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}},
+    scales:{y:{beginAtZero:true,max:60,ticks:{callback:v=>v+'%'}}}}
+});
+
+new Chart(document.getElementById('topChart'),{
+  type:'bar',
+  data:{
+    labels:['Кизильник','Кизильник блест.','Виноград девичий','Дерен Elegantissima','Пузыреплодник','Боярышник','Барбарис Superba','Рябинник','Спирея Grefsheim','Ива Nana'],
+    datasets:[{label:'Доля в количестве продаж, %',data:[30.8,17.3,5.7,5.1,3.0,2.7,2.1,1.8,1.7,1.4],backgroundColor:green,borderRadius:7}]
+  },
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+    scales:{x:{beginAtZero:true,ticks:{callback:v=>v+'%'}}}}
+});
+
+new Chart(document.getElementById('abcChart'),{
+  type:'doughnut',
+  data:{labels:['A — ключевые','B — средние','C — низкий вклад'],
+    datasets:[{data:[80.2,14.9,4.9],backgroundColor:[green,amber,light],borderWidth:0}]},
+  options:{responsive:true,maintainAspectRatio:false,cutout:'64%',
+    plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>c.label+': '+c.raw+'%'}}}}
+});
+</script>
+</body>
+</html>
